@@ -12,11 +12,8 @@
 
 /******************* END OF Declare game specific data and functions *****************/
 
-
-//ToDo set proper image
-let birdImage = new Image();
-birdImage.src = "../res/sprites/player_runing.png";
-
+var flyingActiveImage = new Image();
+flyingActiveImage.src = "res/sprites/player_engines_off.png"
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
@@ -42,7 +39,7 @@ function playGame()
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
 
-    gameObjects[0] = new Explosion(birdImage, 250, 250, 150 )
+    gameObjects[0] = new Player(150)
 
     /* Always play the game */
     game.start();
