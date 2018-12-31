@@ -11,9 +11,17 @@
 /* images must be declared as global, so that they will load before the game starts  */
 
 /******************* END OF Declare game specific data and functions *****************/
+var isScreenPressed = false;
 
-var flyingActiveImage = new Image();
-flyingActiveImage.src = "res/sprites/player_engines_off.png"
+function onInputPressed() {
+    console.log("click")
+    isScreenPressed = true;
+}
+
+function onInputReleased(){
+    console.log("un-click")
+    isScreenPressed = false;
+}
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
@@ -38,6 +46,12 @@ function playGame()
 
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
+
+    canvas.addEventListener("touchstart", onInputPressed)
+    canvas.addEventListener("mousedown", onInputPressed)
+
+    canvas.addEventListener("touchend", onInputReleased)
+    canvas.addEventListener("mouseup", onInputReleased)
 
     gameObjects[0] = new Player(150)
 

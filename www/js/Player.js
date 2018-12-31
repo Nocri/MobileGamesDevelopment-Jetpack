@@ -52,11 +52,16 @@ class Player extends GameObject
         super(40);
 
         /* These variables depend on the object */
-        this.centreX = 100;
+        this.centreX = 200;
         this.centreY = 100;
         this.size = size;
 
-        this.changePlayerState(PlayerState.JETPACK_MALFUNCTION);
+        this.speed = 0;
+
+        this.playerAcceleration = 0.7;
+        this.gravityAcceleration = -0.5;
+
+        this.changePlayerState(PlayerState.JETPACK_ACTIVE);
     }
 
     changePlayerState(newPlayerState){
@@ -71,12 +76,57 @@ class Player extends GameObject
         this.SPRITE_HEIGHT = (playerStateProperties.image.height / playerStateProperties.spriteRowsAmmount);
     }
 
+    isPlayerOnGround(){
+        return this.centreY + this.size / 2 > canvas.height;
+    }
+
+    hasColisionUp(){
+        // console.log({
+        //     centreY: this.centreY,
+        //     size: this.size/2
+        // })
+        return this.centreY - (this.size / 2) < 0;
+    }
+
     updateState()
     {
+        if(this.playerState !== PlayerState.JETPACK_ACTIVE && isScreenPressed){
+            this.changePlayerState(PlayerState.JETPACK_ACTIVE);
+        } else if(this.playerState === PlayerState.JETPACK_ACTIVE && !isScreenPressed){
+            this.changePlayerState(PlayerState.FALLING);
+        }
+
+        if(this.hasColisionUp() && this.speed > 0){
+            this.speed = 0;
+        }
+        if(this.isPlayerOnGround() && this.speed < 0){
+            this.speed = 0;
+        }
+
+        if(this.playerState === PlayerState.JETPACK_ACTIVE){
+            if(!this.hasColisionUp()){
+                this.speed += this.playerAcceleration;
+                // this.currentY -= this.speed;
+            } else {
+                if(this.speed > 0){
+                    this.speed = 0;
+                }
+            }
+        }   else if(!this.isPlayerOnGround()){
+            this.speed += this.gravityAcceleration;
+            // this.currentY += this.speed;
+        }   else if(this.playerState !== PlayerState.RUNNING){
+            this.changePlayerState(PlayerState.RUNNING);
+            this.speed = 0;
+        }
+
+        this.centreY -= this.speed;
+
+        console.log({speed:this.speed, state: this.playerState});
+
         let playerStateProperties = PlayerState.properties[this.playerState];
 
-        console.log(this.currentgameObject)
-        if (this.currentgameObject === (playerStateProperties.spritesAmmount - 1))
+        if (this.currentgameObject >= (playerStateProperties.spritesAmmount - 1))
         {
             this.column = 0;
             this.row = 0;
@@ -91,12 +141,19 @@ class Player extends GameObject
             this.column = 0;
             this.row++;
         }
+
+        //console.log({currentgameObject: this.currentgameObject, row: this.row, column: this.column});
     }
 
     render()
     {
         let playerStateProperties = PlayerState.properties[this.playerState];
 
+        ctx.save();
+        ctx.translate(this.centreX, this.centreY);
+        ctx.rotate(Math.radians(90));
+        ctx.translate(-this.centreX,-this.centreY);
+        
         ctx.drawImage(
             // this.explosionImage,
             playerStateProperties.image,
@@ -109,5 +166,9 @@ class Player extends GameObject
             this.size,
             this.size
         );
+
+        ctx.restore()
+
+  
     }
 }
