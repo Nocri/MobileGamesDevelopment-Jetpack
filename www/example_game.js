@@ -12,6 +12,7 @@
 
 /******************* END OF Declare game specific data and functions *****************/
 var isScreenPressed = false;
+var isMalfunction = false;
 
 function onInputPressed() {
     console.log("click")
@@ -23,10 +24,20 @@ function onInputReleased(){
     isScreenPressed = false;
 }
 
+function togleMalfunction(){
+    isMalfunction = !isMalfunction;
+    console.log({malfunction: isMalfunction})    
+}
+
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
 function playGame()
 {
+
+    let malfunctionButton = document.getElementById("malfunction_button")
+
+    malfunctionButton.addEventListener('click', togleMalfunction)
+
     /* We need to initialise the game objects outside of the Game class */
     /* This function does this initialisation.                          */
     /* Specifically, this function will:                                */
@@ -53,7 +64,7 @@ function playGame()
     canvas.addEventListener("touchend", onInputReleased)
     canvas.addEventListener("mouseup", onInputReleased)
 
-    gameObjects[0] = new Player(150)
+    gameObjects[0] = new Player(70)
 
     /* Always play the game */
     game.start();
