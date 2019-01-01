@@ -62,18 +62,20 @@ class CanvasGame
     {
         let player = gameObjects[0];
         //console.log(gameObjects);
-        let playerLeftEdge = player.centreX - (player.size / 2);
-        let playerRightEdge = player.centreX + (player.size / 2);
-        let playerTopEdge = player.centreY - (player.size / 2);
-        let playerBottomEdge = player.centreY + (player.size / 2);
+        let playerLeftEdge = player.centreX - (player.sizeX / 2);
+        let playerRightEdge = player.centreX + (player.sizeX / 2);
+        let playerTopEdge = player.centreY - (player.sizeY / 2);
+        let playerBottomEdge = player.centreY + (player.sizeY / 2);
         
         for(let i = 1; i < gameObjects.length; i++){
             let object = gameObjects[i];
-            let leftEdge = object.centreX - (object.size / 2);
-            let rightEdge = object.centreX + (object.size / 2);
-            let topEdge = object.centreY - (object.size / 2);
-            let bottomEdge = object.centreY + (object.size / 2);
+            let leftEdge = object.centreX - (object.sizeX / 2);
+            let rightEdge = object.centreX + (object.sizeX / 2);
+            let topEdge = object.centreY - (object.sizeY / 2);
+            let bottomEdge = object.centreY + (object.sizeY / 2);
 
+
+            //console.log(object);
             //ToDo clean this mess, export to methods
             if(
                 object.isDisplayed() &&

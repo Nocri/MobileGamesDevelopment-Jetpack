@@ -14,7 +14,8 @@ class Health extends GameObject
         this.explosionImage = healthImage;
         this.centreX = centreX;
         this.centreY = centreY;
-        this.size = size;
+        this.sizeX = size;
+        this.sizeY = size;
         this.delay = delay;
         this.NUMBER_OF_SPRITES = 1; // the number of gameObjects in the gameObject image
         this.NUMBER_OF_COLUMNS_IN_SPRITE_IMAGE = 1; // the number of columns in the gameObject image
@@ -65,10 +66,10 @@ class Health extends GameObject
             this.row * this.SPRITE_HEIGHT,
             this.SPRITE_WIDTH,
             this.SPRITE_HEIGHT,
-            this.centreX - parseInt(this.size / 2),
-            this.centreY - parseInt(this.size / 2),
-            this.size,
-            this.size
+            this.centreX - parseInt(this.sizeX / 2),
+            this.centreY - parseInt(this.sizeY / 2),
+            this.sizeX,
+            this.sizeY
         );
     }
 

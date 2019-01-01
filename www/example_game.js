@@ -62,6 +62,7 @@ function playGame()
     gameObjects[1] = new Coin(600, 100, 50);
     gameObjects[2] = new Missile(500, 100, 50);
     gameObjects[3] = new Health(800, 400, 50);
+    gameObjects[4] = new Laser(400);
 
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
@@ -71,8 +72,6 @@ function playGame()
 
     canvas.addEventListener("touchend", onInputReleased)
     canvas.addEventListener("mouseup", onInputReleased)
-
-
 
     /* Always play the game */
     game.start();

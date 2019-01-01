@@ -73,7 +73,8 @@ class Player extends GameObject
         /* These variables depend on the object */
         this.centreX = 200;
         this.centreY = 100;
-        this.size = size;
+        this.sizeX = size;
+        this.sizeY = size;
 
         this.speedY = 0;
         this.speedX = 0;
@@ -102,24 +103,24 @@ class Player extends GameObject
             this.angle = 0;
             this.speedY = 0;
             this.speedX = 0;
-            this.centreY = canvas.height - this.size / 2 + 3;
+            this.centreY = canvas.height - this.sizeY / 2 + 3;
         }
     }
 
     isPlayerOnGround(){
-        return this.centreY + this.size / 2 > canvas.height;
+        return this.centreY + this.sizeY / 2 > canvas.height;
     }
 
     hasColisionUp(){
-        return this.centreY - (this.size / 2) < 1;
+        return this.centreY - (this.sizeY / 2) < 1;
     }
 
     hasColisionLeft(){
-        return this.centreX - (this.size / 2) < 0;
+        return this.centreX - (this.sizeX / 2) < 0;
     }
 
     hasColisionRight(){
-        return this.centreX + (this.size / 2) > canvas.width;
+        return this.centreX + (this.sizeX / 2) > canvas.width;
     }
 
     updateState()
@@ -162,23 +163,23 @@ class Player extends GameObject
 
         if(this.isPlayerOnGround() && this.speedY < 0){
             this.speedY = 0;
-            this.centreY = canvas.height - this.size / 2;
+            this.centreY = canvas.height - this.sizeY / 2;
         }
 
         //Colisions 
         if(this.hasColisionUp() && this.speedY > 0){
             this.speedY = 0;
-            this.centreY = this.size / 2;
+            this.centreY = this.sizeY / 2;
         }
 
         if(this.hasColisionLeft() && this.speedX < 0){
             this.speedX = 0;
-            this.centreX = this.size / 2;
+            this.centreX = this.sizeX / 2;
         }
 
         if(this.hasColisionRight() && this.speedX > 0){
             this.speedX = 0;
-            this.centreX = canvas.width - this.size / 2;
+            this.centreX = canvas.width - this.sizeX / 2;
         }
 
         // if(this.isPlayerOnGround() && this.speedY < 0){
@@ -223,10 +224,10 @@ class Player extends GameObject
             this.row * this.SPRITE_HEIGHT,
             this.SPRITE_WIDTH,
             this.SPRITE_HEIGHT,
-            this.centreX - parseInt(this.size / 2), // Coordinates on canvas
-            this.centreY - parseInt(this.size / 2), // Coordinates on canvas
-            this.size,
-            this.size
+            this.centreX - parseInt(this.sizeX / 2),
+            this.centreY - parseInt(this.sizeY / 2),
+            this.sizeX,
+            this.sizeY
         );
 
         ctx.restore()

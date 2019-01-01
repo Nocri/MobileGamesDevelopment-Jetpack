@@ -20,7 +20,8 @@ class GameObject
     {
         this.centreX;
         this.centreY;
-        this.size;
+        this.sizeX;
+        this.sizeY;
 
         /* These are ALWAYS needed */
         this.gameObjectInterval = null; /* set to null when not running */
