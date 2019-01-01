@@ -75,14 +75,14 @@ class Player extends GameObject
         this.centreY = 100;
         this.size = size;
 
-        this.speed = 0;
+        this.speedY = 0;
         this.speedX = 0;
         this.angle = 0;
         
 
         this.playerAcceleration = 0.7;
         this.gravityAcceleration = -0.5;
-        this.rotationSpeed = 5;
+        this.rotationSpeed = 8;
 
         this.changePlayerState(PlayerState.JETPACK_ACTIVE);
     }
@@ -100,7 +100,9 @@ class Player extends GameObject
 
         if(playerStateProperties.reset){
             this.angle = 0;
-            this.speed = 0;
+            this.speedY = 0;
+            this.speedX = 0;
+            this.centreY = canvas.height - this.size / 2 + 3;
         }
     }
 
@@ -109,16 +111,19 @@ class Player extends GameObject
     }
 
     hasColisionUp(){
-        // console.log({
-        //     centreY: this.centreY,
-        //     size: this.size/2
-        // })
         return this.centreY - (this.size / 2) < 1;
+    }
+
+    hasColisionLeft(){
+        return this.centreX - (this.size / 2) < 0;
+    }
+
+    hasColisionRight(){
+        return this.centreX + (this.size / 2) > canvas.width;
     }
 
     updateState()
     {
-
         //State change
         let newState;
 
@@ -138,10 +143,13 @@ class Player extends GameObject
 
         switch(playerStateProperties.movement){
             case MovementDirection.UP:
-                this.speed += this.playerAcceleration;
+
+                this.speedX += Math.cos(Math.radians(-this.angle + 90)) * this.playerAcceleration;
+                this.speedY += Math.sin(Math.radians(-this.angle + 90)) * this.playerAcceleration;  //ToDo x y 
+                console.log({angle: this.angle + 90, speedX: this.speedX, speedY: this.speedY})
             break;
             case MovementDirection.DOWN:
-                this.speed += this.gravityAcceleration;
+                this.speedY += this.gravityAcceleration;
             break;
             case MovementDirection.NONE:
 
@@ -152,62 +160,35 @@ class Player extends GameObject
             this.angle += this.rotationSpeed;
         }
 
-        //Colisions 
-        if(this.hasColisionUp() && this.speed > 0){
-            this.speed = 0;
-            this.centreY = this.size / 2;
-        }
-        if(this.isPlayerOnGround() && this.speed < 0){
-            this.speed = 0;
+        if(this.isPlayerOnGround() && this.speedY < 0){
+            this.speedY = 0;
             this.centreY = canvas.height - this.size / 2;
         }
 
-        this.centreY -= this.speed;
+        //Colisions 
+        if(this.hasColisionUp() && this.speedY > 0){
+            this.speedY = 0;
+            this.centreY = this.size / 2;
+        }
 
+        if(this.hasColisionLeft() && this.speedX < 0){
+            this.speedX = 0;
+            this.centreX = this.size / 2;
+        }
 
+        if(this.hasColisionRight() && this.speedX > 0){
+            this.speedX = 0;
+            this.centreX = canvas.width - this.size / 2;
+        }
 
-
-
-
-        // if(this.playerState !== PlayerState.JETPACK_ACTIVE && isScreenPressed){
-        //     this.changePlayerState(PlayerState.JETPACK_ACTIVE);
-        // } else if(this.playerState === PlayerState.JETPACK_ACTIVE && !isScreenPressed){
-        //     if(isMalfunction){
-        //         this.changePlayerState(PlayerState.JETPACK_MALFUNCTION);
-        //     } else{
-        //         this.changePlayerState(PlayerState.FALLING);
-        //     }
+        // if(this.isPlayerOnGround() && this.speedY < 0){
+        //     this.speedY = 0;
+        //     this.speedX = 0;
+        //     this.centreY = canvas.height - this.size / 2;
         // }
 
-  
-
-        //ToDo block from going offscreen. Just lock to max/min coordinates
-
-
-        // if(this.playerState === PlayerState.JETPACK_ACTIVE){
-        //     if(!this.hasColisionUp()){
-        //         this.speed += this.playerAcceleration;
-        //         // this.currentY -= this.speed;
-        //     } else {
-        //         if(this.speed > 0){
-        //             this.speed = 0;
-        //         }
-        //     }
-        // }   else if(!this.isPlayerOnGround()){
-        //     this.speed += this.gravityAcceleration;
-        //     if(isMalfunction){
-        //         this.angle += this.rotationSpeed;
-        //     }
-        //     // this.currentY += this.speed;
-        // }   else if(this.playerState !== PlayerState.RUNNING){
-        //     this.changePlayerState(PlayerState.RUNNING);
-        //     this.speed = 0;
-        //     this.angle = 0;
-        // }
-
-
-        //console.log({speed:this.speed, state: this.playerState});
-
+        this.centreY -= this.speedY;
+        this.centreX += this.speedX;
 
         if (this.currentgameObject >= (playerStateProperties.spritesAmmount - 1))
         {
@@ -224,8 +205,6 @@ class Player extends GameObject
             this.column = 0;
             this.row++;
         }
-
-        //console.log({currentgameObject: this.currentgameObject, row: this.row, column: this.column});
     }
 
     render()
