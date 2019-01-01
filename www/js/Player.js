@@ -146,7 +146,7 @@ class Player extends GameObject
 
                 this.speedX += Math.cos(Math.radians(-this.angle + 90)) * this.playerAcceleration;
                 this.speedY += Math.sin(Math.radians(-this.angle + 90)) * this.playerAcceleration;  //ToDo x y 
-                console.log({angle: this.angle + 90, speedX: this.speedX, speedY: this.speedY})
+                //console.log({angle: this.angle + 90, speedX: this.speedX, speedY: this.speedY})
             break;
             case MovementDirection.DOWN:
                 this.speedY += this.gravityAcceleration;

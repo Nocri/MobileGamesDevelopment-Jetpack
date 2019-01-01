@@ -60,6 +60,42 @@ class CanvasGame
     
     collisionDetection()
     {
+        let player = gameObjects[0];
+        //console.log(gameObjects);
+        let playerLeftEdge = player.centreX - (player.size / 2);
+        let playerRightEdge = player.centreX + (player.size / 2);
+        let playerTopEdge = player.centreY - (player.size / 2);
+        let playerBottomEdge = player.centreY + (player.size / 2);
+        
+        for(let i = 1; i < gameObjects.length; i++){
+            let object = gameObjects[i];
+            let leftEdge = object.centreX - (object.size / 2);
+            let rightEdge = object.centreX + (object.size / 2);
+            let topEdge = object.centreY - (object.size / 2);
+            let bottomEdge = object.centreY + (object.size / 2);
+
+            if(
+                object.isDisplayed() &&
+                (
+                    playerLeftEdge > leftEdge && playerLeftEdge < rightEdge
+                    ||
+                    playerRightEdge > leftEdge && playerRightEdge < rightEdge    
+                )
+                &&
+                (
+                    playerTopEdge > topEdge && playerTopEdge < bottomEdge
+                    ||
+                    playerBottomEdge > topEdge && playerBottomEdge < bottomEdge
+                )
+            ) {
+                console.log("Collision!");
+                object.onCollision();
+            }
+
+
+
+            //Boczna krawędź jedna wewnątrz gracza && pozioma krawędź jedna wewnątrz gracza
+        }
         /* If you need to implement collision detection in your game, then you can overwrite this method in your sub-class. */
         /* If you do not need to implement collision detection, then you do not need to overwrite this method.              */
     }

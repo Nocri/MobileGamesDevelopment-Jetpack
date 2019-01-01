@@ -29,6 +29,9 @@ function togleMalfunction(){
     console.log({malfunction: isMalfunction})    
 }
 
+const COIN_VALUE = 5;
+var playerPoints = 0;
+
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
 function playGame()
@@ -54,6 +57,8 @@ function playGame()
 
     /* END OF game specific code. */
 
+    gameObjects[0] = new Player(70);
+    gameObjects[1] = new Coin(100, 100, 50);
 
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
@@ -64,7 +69,7 @@ function playGame()
     canvas.addEventListener("touchend", onInputReleased)
     canvas.addEventListener("mouseup", onInputReleased)
 
-    gameObjects[0] = new Player(70)
+
 
     /* Always play the game */
     game.start();

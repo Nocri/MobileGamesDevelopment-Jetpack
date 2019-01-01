@@ -18,6 +18,10 @@ class GameObject
 {
     constructor(updateStateMilliseconds, delay = 0)
     {
+        this.centreX;
+        this.centreY;
+        this.size;
+
         /* These are ALWAYS needed */
         this.gameObjectInterval = null; /* set to null when not running */
         this.gameObjectIsDisplayed = false;
@@ -73,5 +77,9 @@ class GameObject
     render()
     {
         /* If your gameObject renders, then you overwrite this method with your own render() code */
+    }
+
+    onCollision(){
+        /* Action to be done after collision with player*/
     }
 }
