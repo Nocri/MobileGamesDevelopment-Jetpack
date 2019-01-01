@@ -70,8 +70,10 @@ class Player extends GameObject
     {
         super(40);
 
+        this.initialX = 100;
+        this.rubberBandSpeed = 5;
         /* These variables depend on the object */
-        this.centreX = 200;
+        this.centreX = this.initialX;
         this.centreY = 100;
         this.sizeX = size;
         this.sizeY = size;
@@ -180,6 +182,18 @@ class Player extends GameObject
         if(this.hasColisionRight() && this.speedX > 0){
             this.speedX = 0;
             this.centreX = canvas.width - this.sizeX / 2;
+        }
+
+        if(this.playerState == PlayerState.RUNNING){
+            if(this.centreX != this.initialX){
+                if(Math.abs(this.centreX - this.initialX) < 4){
+                    this.centreX = this.initialX;
+                } else if(this.centreX > this.initialX){
+                    this.centreX -= this.rubberBandSpeed;
+                } else {
+                    this.centreX += this.rubberBandSpeed;
+                }
+            }
         }
 
         // if(this.isPlayerOnGround() && this.speedY < 0){
