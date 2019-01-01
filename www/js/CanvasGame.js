@@ -74,6 +74,7 @@ class CanvasGame
             let topEdge = object.centreY - (object.size / 2);
             let bottomEdge = object.centreY + (object.size / 2);
 
+            //ToDo clean this mess, export to methods
             if(
                 object.isDisplayed() &&
                 (
@@ -91,10 +92,6 @@ class CanvasGame
                 console.log("Collision!");
                 object.onCollision();
             }
-
-
-
-            //Boczna krawędź jedna wewnątrz gracza && pozioma krawędź jedna wewnątrz gracza
         }
         /* If you need to implement collision detection in your game, then you can overwrite this method in your sub-class. */
         /* If you do not need to implement collision detection, then you do not need to overwrite this method.              */

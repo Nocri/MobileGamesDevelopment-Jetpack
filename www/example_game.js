@@ -31,6 +31,7 @@ function togleMalfunction(){
 
 const COIN_VALUE = 5;
 var playerPoints = 0;
+var playerLives = 3;
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
@@ -58,8 +59,8 @@ function playGame()
     /* END OF game specific code. */
 
     gameObjects[0] = new Player(70);
-    gameObjects[1] = new Coin(100, 100, 50);
-
+    gameObjects[1] = new Coin(600, 100, 50);
+    gameObjects[2] = new Missile(500, 100, 50);
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
 
