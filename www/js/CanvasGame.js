@@ -60,14 +60,14 @@ class CanvasGame
     
     collisionDetection()
     {
-        let player = gameObjects[0];
+        let player = gameObjects[3];
         //console.log(gameObjects);
         let playerLeftEdge = player.centreX - (player.sizeX / 2);
         let playerRightEdge = player.centreX + (player.sizeX / 2);
         let playerTopEdge = player.centreY - (player.sizeY / 2);
         let playerBottomEdge = player.centreY + (player.sizeY / 2);
         
-        for(let i = 1; i < gameObjects.length; i++){
+        for(let i = 3; i < gameObjects.length; i++){
             let object = gameObjects[i];
             let leftEdge = object.centreX - (object.sizeX / 2);
             let rightEdge = object.centreX + (object.sizeX / 2);

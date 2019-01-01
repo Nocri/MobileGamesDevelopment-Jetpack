@@ -47,7 +47,14 @@ function onPlayerHit(){
     }
 }
 
+let backImage = new Image();
+backImage.src = "res/sprites/far_buildings.png";
 
+let midImage = new Image();
+midImage.src = "res/sprites/back_buildings.png";
+
+let frontImage = new Image();
+frontImage.src = "res/sprites/foreground.png";
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
@@ -74,18 +81,25 @@ function playGame()
 
     /* END OF game specific code. */
 
-    gameObjects[0] = new Player(70);
-    gameObjects[1] = new Coin(600, 100, 50);
-    gameObjects[2] = new Missile(500, 100, 50);
-    gameObjects[3] = new Health(800, 400, 50);
-    gameObjects[4] = new Laser(400);
+    
+    gameObjects[0] = new ScrollingBackgroundImage (backImage, 50);
+    gameObjects[1] = new ScrollingBackgroundImage (midImage, 40);
+    gameObjects[2] = new ScrollingBackgroundImage (frontImage, 30);
+
+    gameObjects[3] = new Player(70);
+
+    gameObjects[4] = new Coin(600, 100, 50);
+    gameObjects[5] = new Missile(500, 100, 50);
+    gameObjects[6] = new Health(800, 400, 50);
+    gameObjects[7] = new Laser(400);
 
     setTimeout(function(){
         console.log("new laser!");
-        gameObjects[5] = new Laser(200); 
-        gameObjects[5].start();
+        gameObjects[8] = new Laser(200); 
+        gameObjects[8].start();
         console.log(gameObjects);
     }, IMMUNITY_DURATION);        
+
 
 
     /* Always create a game that uses the gameObject array */
