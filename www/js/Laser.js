@@ -66,8 +66,8 @@ class Laser extends GameObject
     onCollision(){
         if(this.isDisplayed()){
             // this.stopAndHide()       
-            playerLives -= 1;
-            console.log("Laser hit! " + playerLives)
+            onPlayerHit();
+            //console.log("Laser hit! " + playerLifes)
         }
     }
 }

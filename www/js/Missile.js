@@ -76,8 +76,7 @@ class Missile extends GameObject
     onCollision(){
         if(this.isDisplayed()){
             this.stopAndHide()       
-            playerLives -= 1;
-            console.log("Missile hit! " + playerLives)
+            onPlayerHit();
         }
     }
 }

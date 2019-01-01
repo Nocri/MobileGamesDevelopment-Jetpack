@@ -1,16 +1,12 @@
-/* Author: Derek O Reilly, Dundalk Institute of Technology, Ireland.             */
-/* There should always be a javaScript file with the same name as the html file. */
-/* This file always holds the playGame function().                               */
-/* It also holds game specific code, which will be different for each game       */
 
+const COIN_VALUE = 5;
+const IMMUNITY_DURATION = 5000;
+const PLAYER_FLICKER_INTERVAL = 400;
+var playerPoints = 0;
+var playerLifes = 3;
+var playerImmune = false;
+var playerVisible = true;
 
-
-
-
-/******************** Declare game specific global data and functions *****************/
-/* images must be declared as global, so that they will load before the game starts  */
-
-/******************* END OF Declare game specific data and functions *****************/
 var isScreenPressed = false;
 var isMalfunction = false;
 
@@ -29,9 +25,29 @@ function togleMalfunction(){
     console.log({malfunction: isMalfunction})    
 }
 
-const COIN_VALUE = 5;
-var playerPoints = 0;
-var playerLives = 3;
+function takeLive(){
+    //ToDo end game? 
+    playerLifes -= 1;
+    console.log("Player lost life " + playerLifes);
+}
+
+function onPlayerHit(){
+    if(!playerImmune){
+        takeLive();
+        playerImmune = true;
+        let flickerInterval = setInterval(function(){ playerVisible = !playerVisible; console.log("flick");}, PLAYER_FLICKER_INTERVAL);
+
+        setTimeout(function(){
+            playerImmune = false;
+            console.log("Immunity end");
+            clearInterval(flickerInterval); 
+            playerVisible = true;
+        }, IMMUNITY_DURATION);        
+        
+    }
+}
+
+
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
@@ -63,6 +79,14 @@ function playGame()
     gameObjects[2] = new Missile(500, 100, 50);
     gameObjects[3] = new Health(800, 400, 50);
     gameObjects[4] = new Laser(400);
+
+    setTimeout(function(){
+        console.log("new laser!");
+        gameObjects[5] = new Laser(200); 
+        gameObjects[5].start();
+        console.log(gameObjects);
+    }, IMMUNITY_DURATION);        
+
 
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();

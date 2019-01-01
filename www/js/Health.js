@@ -76,8 +76,8 @@ class Health extends GameObject
     onCollision(){
         if(this.isDisplayed()){
             this.stopAndHide()       
-            playerLives+= 1;
-            console.log("Health added! " + playerLives)
+            playerLifes+= 1;
+            console.log("Health added! " + playerLifes)
         }
     }
 }

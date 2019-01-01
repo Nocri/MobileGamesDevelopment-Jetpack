@@ -231,18 +231,21 @@ class Player extends GameObject
         ctx.rotate(Math.radians(this.angle));
         ctx.translate(-this.centreX,-this.centreY);
         
-        ctx.drawImage(
-            // this.explosionImage,
-            playerStateProperties.image,
-            this.column * this.SPRITE_WIDTH,
-            this.row * this.SPRITE_HEIGHT,
-            this.SPRITE_WIDTH,
-            this.SPRITE_HEIGHT,
-            this.centreX - parseInt(this.sizeX / 2),
-            this.centreY - parseInt(this.sizeY / 2),
-            this.sizeX,
-            this.sizeY
-        );
+        if(playerVisible){
+            ctx.drawImage(
+                // this.explosionImage,
+                playerStateProperties.image,
+                this.column * this.SPRITE_WIDTH,
+                this.row * this.SPRITE_HEIGHT,
+                this.SPRITE_WIDTH,
+                this.SPRITE_HEIGHT,
+                this.centreX - parseInt(this.sizeX / 2),
+                this.centreY - parseInt(this.sizeY / 2),
+                this.sizeX,
+                this.sizeY
+            );
+        }
+
 
         ctx.restore()
     }
