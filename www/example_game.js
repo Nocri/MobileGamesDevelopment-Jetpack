@@ -61,6 +61,8 @@ function playGame()
     gameObjects[0] = new Player(70);
     gameObjects[1] = new Coin(600, 100, 50);
     gameObjects[2] = new Missile(500, 100, 50);
+    gameObjects[3] = new Health(800, 400, 50);
+
     /* Always create a game that uses the gameObject array */
     let game = new CanvasGame();
 
