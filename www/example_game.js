@@ -179,3 +179,88 @@ function playGame()
 
     /* If they are needed, then include any game-specific mouse and keyboard listners */
 }
+
+AWS.config.update({
+    region: "eu-central-1",
+    endpoint: 'dynamodb.eu-central-1.amazonaws.com',
+    // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+    accessKeyId: "AKIAIMQL4QAMWEDS74CA",
+    // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+    secretAccessKey: "S/KIXePgO4wOz72iNJAgVkqmta6o2jTZu+wH5Cy4"
+  });
+
+  
+var dynamodb = new AWS.DynamoDB();
+
+function createMovies() {
+    var params = {
+        TableName : "HighScores",
+        KeySchema: [
+            { AttributeName: "UserName", KeyType: "HASH"},
+            { AttributeName: "Score", KeyType: "RANGE" }
+        ],
+        AttributeDefinitions: [
+            { AttributeName: "UserName", AttributeType: "S" },
+            { AttributeName: "Score", AttributeType: "N" }
+        ],
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5
+        }
+    };
+
+    dynamodb.createTable(params, function(err, data) {
+        console.log(err);
+        console.log(data);
+        if (err) {
+            document.getElementById('textarea').innerHTML = "Unable to create table: " + "\n" + JSON.stringify(err, undefined, 2);
+        } else {
+            document.getElementById('textarea').innerHTML = "Created table: " + "\n" + JSON.stringify(data, undefined, 2);
+        }
+    });
+}
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+
+function readItem() {
+    // var year = 2015;
+    // var title = "The Big New Movie";
+
+    // var params = {
+    //     TableName: "HighScores",
+    //     // Key:{
+    //     //     "year": year,
+    //     //     "title": title
+    //     // }
+    // };
+
+
+    var params = {
+        TableName: "HighScores",
+        ProjectionExpression: "UserName, Score",
+        // FilterExpression: "#yr between :start_yr and :end_yr",
+        // ExpressionAttributeNames: {
+        //     "#yr": "year",
+        // },
+        // ExpressionAttributeValues: {
+        //      ":start_yr": 1950,
+        //      ":end_yr": 1959 
+        // }
+    };
+    
+    console.log("Scanning Movies table.");
+    docClient.scan(params, function(err, data) {
+        console.log({error: err, data: data});
+        // if (err) {
+        //     document.getElementById('textarea').innerHTML = "Unable to read item: " + "\n" + JSON.stringify(err, undefined, 2);
+        // } else {
+        //     document.getElementById('textarea').innerHTML = "GetItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+        // }
+    });
+}
+
+
+readItem();
