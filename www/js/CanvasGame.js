@@ -56,6 +56,11 @@ class CanvasGame
                 gameObjects[i].render();
             }
         }
+
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "#FFFFFF"
+        ctx.fillText(playerLifes + " Lifes", 10, 50);
+        ctx.fillText("Score: " + playerPoints, canvas.width - 300, 50);
     }
     
     collisionDetection()
