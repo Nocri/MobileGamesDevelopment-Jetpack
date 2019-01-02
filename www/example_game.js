@@ -76,6 +76,14 @@ function getRandomHeight(){
     return Math.random() * canvas.height;
 }
 
+function onStartGameClicked(){
+    console.log("startGame");
+}
+
+function onHighScoresClicked(){
+    console.log("high scores");
+}
+
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
 function playGame()
@@ -83,9 +91,13 @@ function playGame()
     PROPS_START_X = canvas.width + 50;
 
     let malfunctionButton = document.getElementById("malfunction_button")
-
     malfunctionButton.addEventListener('click', togleMalfunction);
 
+    let startGameButton = document.getElementById("startGameButton")
+    startGameButton.addEventListener('click', onStartGameClicked);
+
+    let highScoresButton = document.getElementById("highScoresButton")
+    highScoresButton.addEventListener('click', onHighScoresClicked);
 
     /* We need to initialise the game objects outside of the Game class */
     /* This function does this initialisation.                          */
@@ -112,10 +124,6 @@ function playGame()
         let newObject;
         for(i = 0; i < PROBABILITY_OF_PROPS.length; i++){
             probSum += PROBABILITY_OF_PROPS[i];
-            console.log({
-                number: number,
-                probSum: probSum,
-            })
             if(number < probSum){
                 switch(i){
                     case 0:

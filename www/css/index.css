@@ -113,3 +113,39 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+#gameMenu, .highScoresContainer {
+    visibility: hidden;    
+
+}
+
+.sth{background-color: #541530;}
+
+.menuContainer, .highScoresContainer {
+    background-color: #000000DD;
+    border-radius: 10px;
+    height: 500px;
+    overflow-y:scroll;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column; 
+    
+    justify-content:center;
+    align-items:center;
+
+}
+
+.menuItem, .highScoreItem {
+    font-size: 18px;
+    font-weight: bold;
+    color: #E4E4E4;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-right: 10px;
+}
