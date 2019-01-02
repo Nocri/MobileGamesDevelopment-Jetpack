@@ -57,6 +57,8 @@ class CanvasGame
             }
         }
 
+        if(!isGameOn){return;}
+
         ctx.font = "20px Arial";
         ctx.fillStyle = "#FFFFFF"
         ctx.fillText(playerLifes + " Lifes", 10, 50);

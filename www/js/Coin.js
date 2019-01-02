@@ -74,9 +74,11 @@ class Coin extends GameObject
 
     onCollision(){
         if(this.isDisplayed()){
-            this.stopAndHide()       
-            playerPoints += COIN_VALUE;
-            console.log("Coin earned " + playerPoints)
+            this.stopAndHide();
+            if(isGameOn){
+                playerPoints += COIN_VALUE;
+                console.log("Coin earned " + playerPoints)
+            }       
         }
     }
 }

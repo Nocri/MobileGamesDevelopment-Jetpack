@@ -163,11 +163,15 @@ h1 {
     color: #FFFFFF;
 }
 
-.menuItem, .highScoreItem {
+li, .menuItem, .highScoreItem {
     font-size: 18px;
     font-weight: bold;
     color: #E4E4E4;
     margin-bottom: 30px;
+}
+
+li {
+    font-size: 15px;
 }
 
 #highScoresContainer {
@@ -195,4 +199,12 @@ h1 {
 
 #highScoresButton{
     margin: 0px;
+}
+
+#loading {
+    display: none;
+    color: #FFFFFF;
+    margin: 16px;
+    font-weight: bold;
+    font-size: 20px;  
 }

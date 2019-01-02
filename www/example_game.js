@@ -8,6 +8,8 @@ const PROBABILITY_OF_PROPS = [0.3, 0.1, 0.005, 0.01, 0.005];
 
 var PROPS_START_X;
 
+var isGameOn = false;
+
 var scoreTimer = 0;
 
 var playerPoints = 0;
@@ -29,14 +31,22 @@ function onInputReleased(){
 }
 
 function togleMalfunction(){
-    isMalfunction = !isMalfunction;
-    console.log({malfunction: isMalfunction})    
+    // takeLive();
+    // isMalfunction = !isMalfunction;
+    // console.log({malfunction: isMalfunction})   
+    createItem("A", 2);
+    readScores(); 
 }
 
 function takeLive(){
     //ToDo end game? 
     playerLifes -= 1;
     console.log("Player lost life " + playerLifes);
+    if(playerLifes === 0){
+        isGameOn = false;
+        gameObjects = gameObjects.slice(0, 4);
+        showEnterName();
+    }
 }
 
 function onPlayerHit(){
@@ -78,6 +88,9 @@ function getRandomHeight(){
 
 function onStartGameClicked(){
     console.log("startGame");
+    isGameOn = true;
+    playerLifes = 3;
+    playerPoints = 0;
 }
 
 function onHighScoresClicked(){
@@ -110,6 +123,7 @@ function playGame()
 
 
     setInterval(function(){
+        if(!isGameOn){return;}
         let max = PROBABILITY_OF_PROPS.reduce(function(a, b) { return a + b; }, 0)
         let number = Math.random() * (max * 50);
         
@@ -173,22 +187,6 @@ function playGame()
     /* If they are needed, then include any game-specific mouse and keyboard listners */
 }
 
-
-//ToDo export to another file 
-AWS.config.update({
-    region: "eu-central-1",
-    endpoint: 'dynamodb.eu-central-1.amazonaws.com',
-    // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    accessKeyId: "AKIAIMQL4QAMWEDS74CA",
-    // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    secretAccessKey: "S/KIXePgO4wOz72iNJAgVkqmta6o2jTZu+wH5Cy4"
-  });
-
-  
-var dynamodb = new AWS.DynamoDB();
-
 function createMovies() {
     var params = {
         TableName : "HighScores",
@@ -216,46 +214,3 @@ function createMovies() {
         }
     });
 }
-
-var docClient = new AWS.DynamoDB.DocumentClient();
-
-
-function readItem() {
-    // var year = 2015;
-    // var title = "The Big New Movie";
-
-    // var params = {
-    //     TableName: "HighScores",
-    //     // Key:{
-    //     //     "year": year,
-    //     //     "title": title
-    //     // }
-    // };
-
-
-    var params = {
-        TableName: "HighScores",
-        ProjectionExpression: "UserName, Score",
-        // FilterExpression: "#yr between :start_yr and :end_yr",
-        // ExpressionAttributeNames: {
-        //     "#yr": "year",
-        // },
-        // ExpressionAttributeValues: {
-        //      ":start_yr": 1950,
-        //      ":end_yr": 1959 
-        // }
-    };
-    
-    console.log("Scanning Movies table.");
-    docClient.scan(params, function(err, data) {
-        console.log({error: err, data: data});
-        // if (err) {
-        //     document.getElementById('textarea').innerHTML = "Unable to read item: " + "\n" + JSON.stringify(err, undefined, 2);
-        // } else {
-        //     document.getElementById('textarea').innerHTML = "GetItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
-        // }
-    });
-}
-
-
-readItem();
