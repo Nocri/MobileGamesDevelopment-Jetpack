@@ -90,14 +90,7 @@ function playGame()
 {
     PROPS_START_X = canvas.width + 50;
 
-    let malfunctionButton = document.getElementById("malfunction_button")
-    malfunctionButton.addEventListener('click', togleMalfunction);
 
-    let startGameButton = document.getElementById("startGameButton")
-    startGameButton.addEventListener('click', onStartGameClicked);
-
-    let highScoresButton = document.getElementById("highScoresButton")
-    highScoresButton.addEventListener('click', onHighScoresClicked);
 
     /* We need to initialise the game objects outside of the Game class */
     /* This function does this initialisation.                          */
@@ -180,6 +173,8 @@ function playGame()
     /* If they are needed, then include any game-specific mouse and keyboard listners */
 }
 
+
+//ToDo export to another file 
 AWS.config.update({
     region: "eu-central-1",
     endpoint: 'dynamodb.eu-central-1.amazonaws.com',

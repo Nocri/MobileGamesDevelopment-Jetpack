@@ -30,6 +30,8 @@ document.addEventListener("deviceready", onAllAssetsLoaded);  // needed for Cord
 
 function onAllAssetsLoaded()
 {
+    console.log("assets loaded");
+    initUI();
     /* Initialise the canvas and associated variables */
     /* This code never changes                        */
     canvas = document.getElementById("gameCanvas");
