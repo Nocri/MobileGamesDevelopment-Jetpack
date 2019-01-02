@@ -5,17 +5,17 @@ missileImage.src = "res/sprites/missile.png";
 class Missile extends GameObject
 {
 
-    constructor(centreX, centreY, size, delay = 0)
+    constructor(centreY, delay = 0)
     {
         super(40, delay); /* as this class extends from GameObject, you must always call super() */
 
         this.movementSpeed = 10;
         /* These variables depend on the object */
         this.explosionImage = missileImage;
-        this.centreX = centreX;
+        this.centreX = PROPS_START_X;
         this.centreY = centreY;
-        this.sizeX = size;
-        this.sizeY = size * 0.26;
+        this.sizeX = 50;
+        this.sizeY = 50 * 0.26;
         this.delay = delay;
         this.NUMBER_OF_SPRITES = 5; // the number of gameObjects in the gameObject image
         this.NUMBER_OF_COLUMNS_IN_SPRITE_IMAGE = 5; // the number of columns in the gameObject image

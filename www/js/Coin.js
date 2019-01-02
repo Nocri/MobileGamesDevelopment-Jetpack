@@ -1,21 +1,20 @@
 let coinImage = new Image();
 coinImage.src = "res/sprites/coin.png";
 
-
 class Coin extends GameObject
 {
 
-    constructor(centreX, centreY, size, delay = 0)
+    constructor(centreY, delay = 0)
     {
         super(40, delay); /* as this class extends from GameObject, you must always call super() */
 
         this.movementSpeed = 5;
         /* These variables depend on the object */
         this.explosionImage = coinImage;
-        this.centreX = centreX;
+        this.centreX = PROPS_START_X;
         this.centreY = centreY;
-        this.sizeX = size;
-        this.sizeY = size;
+        this.sizeX = 30;
+        this.sizeY = 30;
         this.delay = delay;
         this.NUMBER_OF_SPRITES = 8; // the number of gameObjects in the gameObject image
         this.NUMBER_OF_COLUMNS_IN_SPRITE_IMAGE = 8; // the number of columns in the gameObject image

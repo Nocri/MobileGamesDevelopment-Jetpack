@@ -61,6 +61,10 @@ class CanvasGame
         ctx.fillStyle = "#FFFFFF"
         ctx.fillText(playerLifes + " Lifes", 10, 50);
         ctx.fillText("Score: " + playerPoints, canvas.width - 300, 50);
+
+        if(isMalfunction){
+            ctx.fillText("Jetpack malfunction! ", canvas.width - 100, 50);
+        }
     }
     
     collisionDetection()
@@ -78,7 +82,6 @@ class CanvasGame
             let rightEdge = object.centreX + (object.sizeX / 2);
             let topEdge = object.centreY - (object.sizeY / 2);
             let bottomEdge = object.centreY + (object.sizeY / 2);
-
 
             //console.log(object);
             //ToDo clean this mess, export to methods
