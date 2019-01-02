@@ -232,6 +232,18 @@ class Player extends GameObject
         ctx.translate(-this.centreX,-this.centreY);
         
         if(playerVisible){
+            let dx = this.centreX - parseInt(this.sizeX / 2);
+            let dy = this.centreY - parseInt(this.sizeY / 2);
+
+            // ctx.fillRect(dx, dy, this.sizeX, this.sizeY);
+
+
+            // console.log({
+            //     dx: dx,
+            //     dy: dy,
+            //     sizeX: this.sizeX,
+            //     sizeY: this.sizeY
+            // })
             ctx.drawImage(
                 // this.explosionImage,
                 playerStateProperties.image,
@@ -239,11 +251,16 @@ class Player extends GameObject
                 this.row * this.SPRITE_HEIGHT,
                 this.SPRITE_WIDTH,
                 this.SPRITE_HEIGHT,
-                this.centreX - parseInt(this.sizeX / 2),
-                this.centreY - parseInt(this.sizeY / 2),
+                dx,
+                dy,
                 this.sizeX,
                 this.sizeY
             );
+            // ctx.fillStyle = 'green';
+
+
+
+            
         }
 
 
