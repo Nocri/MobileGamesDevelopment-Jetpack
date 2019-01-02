@@ -34,13 +34,13 @@ function togleMalfunction(){
     // takeLive();
     // isMalfunction = !isMalfunction;
     // console.log({malfunction: isMalfunction})   
-    createItem("A", 2);
     readScores(); 
 }
 
 function takeLive(){
     //ToDo end game? 
     playerLifes -= 1;
+    navigator.vibrate([500]);
     console.log("Player lost life " + playerLifes);
     if(playerLifes === 0){
         isGameOn = false;
@@ -67,6 +67,8 @@ function onPlayerHit(){
 function initMalfunction(){
     isMalfunction = true;
 
+    navigator.vibrate([1000, 1000, 1000, 1000, 1000]);
+
     setTimeout(function(){
         isMalfunction = false;
     }, MAULFUNCTION_DURATION);
@@ -74,13 +76,13 @@ function initMalfunction(){
 }
 
 let backImage = new Image();
-backImage.src = "res/sprites/far_buildings.png";
+backImage.src = "img/far_buildings.png";
 
 let midImage = new Image();
-midImage.src = "res/sprites/back_buildings.png";
+midImage.src = "img/back_buildings.png";
 
 let frontImage = new Image();
-frontImage.src = "res/sprites/foreground.png";
+frontImage.src = "img/foreground.png";
 
 function getRandomHeight(){
     return Math.random() * canvas.height;

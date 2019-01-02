@@ -30,14 +30,26 @@ document.addEventListener("deviceready", onAllAssetsLoaded);  // needed for Cord
 
 function onAllAssetsLoaded()
 {
+
     console.log("assets loaded");
     initUI();
     /* Initialise the canvas and associated variables */
     /* This code never changes                        */
     canvas = document.getElementById("gameCanvas");
     ctx = canvas.getContext("2d");
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    // canvas.width = canvas.clientWidth;
+    // canvas.height = canvas.clientHeight;
+    console.log({canvas: window.screen});
+    // canvas.width  = canvas.offsetWidth;
+    // canvas.height = canvas.offsetHeight;
+
+    var windowWidth = window.innerWidth;
+var windowHeight = window.innerHeight;
+// var pixelRatio = window.devicePixelRatio || 1; /// get pixel ratio of device
+
+
+canvas.width = windowWidth ;   /// resolution of canvas
+canvas.height = windowHeight ;
 
     playGame(); // Each game will include its own .js file, which will hold the game's palyGame() function
 }

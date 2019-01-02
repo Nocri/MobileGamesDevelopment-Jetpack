@@ -1,5 +1,5 @@
 let coinImage = new Image();
-coinImage.src = "res/sprites/coin.png";
+coinImage.src = "img/coin.png";
 
 class Coin extends GameObject
 {

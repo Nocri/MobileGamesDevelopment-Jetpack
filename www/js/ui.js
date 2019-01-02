@@ -31,10 +31,6 @@ function initUI(){
         showMenu();
     });
 
-
-    let malfunctionButton = document.getElementById("malfunction_button")
-    malfunctionButton.addEventListener('click', togleMalfunction);
-
     let startGameButton = document.getElementById("startGameButton")
     startGameButton.addEventListener('click', function(){hideAll(); onStartGameClicked();});
 

@@ -1,5 +1,5 @@
 let laserImage = new Image();
-laserImage.src = "res/sprites/laser.png";
+laserImage.src = "img/laser.png";
 
 var BEAM_DURATION = 6000;
 class Laser extends GameObject

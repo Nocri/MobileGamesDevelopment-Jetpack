@@ -1,5 +1,5 @@
 let missileImage = new Image();
-missileImage.src = "res/sprites/missile.png";
+missileImage.src = "img/missile.png";
 
 
 class Missile extends GameObject

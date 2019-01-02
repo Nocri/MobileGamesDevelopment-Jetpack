@@ -1,5 +1,5 @@
 let healthImage = new Image();
-healthImage.src = "res/sprites/health.png";
+healthImage.src = "img/health.png";
 
 
 class Health extends GameObject

@@ -1,14 +1,14 @@
 let fallingImage = new Image();
-fallingImage.src = "res/sprites/player_engines_off.png";
+fallingImage.src = "img/player_engines_off.png";
 
 let jetpackActiveImage = new Image();
-jetpackActiveImage.src = "res/sprites/player_moving.png";
+jetpackActiveImage.src = "img/player_moving.png";
 
 let jetpackMalfunctionImage = new Image();
-jetpackMalfunctionImage.src = "res/sprites/player_moving_one_engine.png";
+jetpackMalfunctionImage.src = "img/player_moving_one_engine.png";
 
 let runningImage = new Image();
-runningImage.src = "res/sprites/player_running.png";
+runningImage.src = "img/player_running.png";
 
 var MovementDirection = {
     UP: 1,
