@@ -100,10 +100,13 @@ class CanvasGame
             //ToDo clean this mess, export to methods
             if(
                 object.isDisplayed() &&
-                (
+                ((
                     leftEdge > playerLeftEdge && leftEdge < playerRightEdge
                     ||
                     rightEdge > playerLeftEdge && rightEdge < playerRightEdge
+                )
+                ||
+                object.sizeX > canvas.width // laser hotfix
                 )
                 &&
                 (
