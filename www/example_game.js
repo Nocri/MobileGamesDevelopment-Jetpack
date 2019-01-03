@@ -99,10 +99,15 @@ function onHighScoresClicked(){
     console.log("high scores");
 }
 
+
+var isGameInit = false;
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */
 function playGame()
 {
+    if(isGameInit) {return;}
+    isGameInit = true;
+
     PROPS_START_X = canvas.width + 50;
 
 
@@ -122,6 +127,7 @@ function playGame()
     /* This is game specific code. It will be different for each game, as each game will have it own gameObjects */
 
     /* END OF game specific code. */
+
 
 
     setInterval(function(){
@@ -185,6 +191,23 @@ function playGame()
     /* Always play the game */
     game.start();
 
+
+    setInterval(function(){
+        var newObjects = [];
+        let newSize = 0;
+        for(let i = 0; i < gameObjects.length; i++){
+            
+            if(i < 4 || (gameObjects[i] !== undefined && gameObjects[i].centreX > -50)){
+                newObjects[newSize] = gameObjects[i];
+                newSize++;
+            }
+        }
+        console.log({
+            old: gameObjects,
+            new: newObjects
+        });
+        gameObjects = newObjects;
+    }, 5000);
 
     /* If they are needed, then include any game-specific mouse and keyboard listners */
 }

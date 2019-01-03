@@ -90,7 +90,9 @@ class CanvasGame
         let playerBottomEdge = playerTopEdge + player.sizeY;
         
         for(let i = 3; i < gameObjects.length; i++){
+            
             let object = gameObjects[i];
+            if(object === undefined){continue;}
             let leftEdge = object.centreX - (object.sizeX / 2);
             let rightEdge = leftEdge + object.sizeX;
             let topEdge = object.centreY - (object.sizeY / 2);
