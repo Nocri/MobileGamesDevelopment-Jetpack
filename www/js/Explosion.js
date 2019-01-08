@@ -1,24 +1,31 @@
 /* Author: Derek O Reilly, Dundalk Institute of Technology, Ireland. */
 /* The Explosion GameObject is an animated gameObject of an explosion    */
 
+let explosionImage = new Image();
+explosionImage.src = "img/explosion.png";
+
+let explosionSound = document.createElement('audio');
+explosionSound.src = 'sounds/explosion_sound.mp3';
+
 class Explosion extends GameObject
 {
     /* Each gameObject MUST have a constructor() and a render() method.        */
     /* If the object animates, then it must also have an updateState() method. */
 
-    constructor(explosionImage, centreX, centreY, size, delay = 0)
+    constructor(centreX, centreY, size, delay = 0)
     {
         super(40, delay); /* as this class extends from GameObject, you must always call super() */
 
         /* These variables depend on the object */
         this.explosionImage = explosionImage;
+        this.explosionSound = explosionSound;
         this.centreX = centreX;
         this.centreY = centreY;
         this.size = size;
         this.delay = delay;
-        this.NUMBER_OF_SPRITES = 15; // the number of gameObjects in the gameObject image
-        this.NUMBER_OF_COLUMNS_IN_SPRITE_IMAGE = 5; // the number of columns in the gameObject image
-        this.NUMBER_OF_ROWS_IN_SPRITE_IMAGE = 3; // the number of rows in the gameObject image	
+        this.NUMBER_OF_SPRITES = 74; // the number of gameObjects in the gameObject image
+        this.NUMBER_OF_COLUMNS_IN_SPRITE_IMAGE = 9; // the number of columns in the gameObject image
+        this.NUMBER_OF_ROWS_IN_SPRITE_IMAGE = 9; // the number of rows in the gameObject image	
         this.START_ROW = 0;
         this.START_COLUMN = 0;
 
@@ -36,16 +43,11 @@ class Explosion extends GameObject
     {
         if (this.isFirstCallOfUpdateState)
         {
-            // this.explosionSound.currentTime = 0;
-            // this.explosionSound.play();
+            this.explosionSound.currentTime = 0;
+            this.explosionSound.play();
             this.isFirstCallOfUpdateState = false;
         }
 
-        if (this.currentgameObject === this.NUMBER_OF_SPRITES)
-        {
-            this.column = 0;
-            this.row = 0;
-        }
         this.currentgameObject++;
 
         this.column++;
@@ -56,8 +58,7 @@ class Explosion extends GameObject
         }
 
         if(this.row >= this.NUMBER_OF_ROWS_IN_SPRITE_IMAGE){
-            this.column = 0;
-            this.row = 0;
+            
         }
     }
 

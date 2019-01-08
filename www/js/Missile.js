@@ -77,6 +77,9 @@ class Missile extends GameObject
         if(this.isDisplayed()){
             this.stopAndHide()       
             onPlayerHit();
+            let explosion =  new Explosion(this.centreX - this.sizeX/2, this.centreY, 60);
+            gameObjects[gameObjects.length] =explosion;
+            explosion.start();
         }
     }
 }
