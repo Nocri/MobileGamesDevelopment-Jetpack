@@ -7,7 +7,7 @@ const MAULFUNCTION_DURATION = 5000;
 const PROBABILITY_OF_PROPS = [0.3, 0.1, 0.005, 0.01, 0.005];
 
 var difficulty = 1;
-var gameSpeedMultiplier = 6;
+var gameSpeedMultiplier = 20;
 
 var PROPS_START_X;
 
@@ -112,7 +112,7 @@ function getRandomCoinHeight(){
 function resetGame(){
     isGameOn = false;
     difficulty = 1;
-    gameSpeedMultiplier = 6;
+    gameSpeedMultiplier = 3;
 };
 
 
@@ -121,6 +121,8 @@ function onStartGameClicked(){
     isGameOn = true;
     playerLifes = 3;
     playerPoints = 0;
+    difficulty = 1;
+    gameSpeedMultiplier = 3;
 }
 
 function onHighScoresClicked(){
@@ -140,10 +142,10 @@ function playGame()
     PROPS_START_X = canvas.width + 50;
 
     setInterval(function(){
-        if(difficulty < 46){
-            difficulty += 3;
+        if(difficulty < 45){
+            difficulty += 4;
         }
-        gameSpeedMultiplier += 2;
+        gameSpeedMultiplier += 0.5;
         console.log({difficulty: difficulty, gameSpeedMultiplier: gameSpeedMultiplier});
     }, 5000);
 
