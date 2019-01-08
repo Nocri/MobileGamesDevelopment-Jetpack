@@ -55,7 +55,7 @@ class Health extends GameObject
             this.row = 0;
         }
 
-        this.centreX -= this.movementSpeed;
+        this.centreX -= (this.movementSpeed + gameSpeedMultiplier);
     }
 
     render()

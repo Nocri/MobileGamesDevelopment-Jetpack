@@ -6,6 +6,9 @@ const MAULFUNCTION_DURATION = 5000;
 //coin, missile, health, beam
 const PROBABILITY_OF_PROPS = [0.3, 0.1, 0.005, 0.01, 0.005];
 
+var difficulty = 1;
+var gameSpeedMultiplier = 6;
+
 var PROPS_START_X;
 
 var isGameOn = false;
@@ -46,6 +49,7 @@ function takeLive(){
         isGameOn = false;
         gameObjects = gameObjects.slice(0, 4);
         showEnterName();
+        resetGame();
     }
 }
 
@@ -88,6 +92,13 @@ function getRandomHeight(){
     return Math.random() * canvas.height;
 }
 
+function resetGame(){
+    isGameOn = false;
+    difficulty = 1;
+    gameSpeedMultiplier = 6;
+};
+
+
 function onStartGameClicked(){
     console.log("startGame");
     isGameOn = true;
@@ -110,30 +121,18 @@ function playGame()
 
     PROPS_START_X = canvas.width + 50;
 
-
-
-    /* We need to initialise the game objects outside of the Game class */
-    /* This function does this initialisation.                          */
-    /* Specifically, this function will:                                */
-    /* 1. initialise the canvas and associated variables                */
-    /* 2. create the various game gameObjects,                   */
-    /* 3. store the gameObjects in an array                      */
-    /* 4. create a new Game to display the gameObjects           */
-    /* 5. start the Game                                                */
-
-
-
-    /* Create the various gameObjects for this game. */
-    /* This is game specific code. It will be different for each game, as each game will have it own gameObjects */
-
-    /* END OF game specific code. */
-
-
+    setInterval(function(){
+        if(difficulty < 46){
+            difficulty += 3;
+        }
+        gameSpeedMultiplier += 2;
+        console.log({difficulty: difficulty, gameSpeedMultiplier: gameSpeedMultiplier});
+    }, 5000);
 
     setInterval(function(){
         if(!isGameOn){return;}
-        let max = PROBABILITY_OF_PROPS.reduce(function(a, b) { return a + b; }, 0)
-        let number = Math.random() * (max * 50);
+        let max = PROBABILITY_OF_PROPS.reduce(function(a, b) { return a + b; }, 0);
+        let number = Math.random() * (max * (50 - difficulty));
         
         let probSum = 0;
         let newObject;
@@ -167,15 +166,15 @@ function playGame()
         }
 
         scoreTimer++;
-        if(scoreTimer == 50){
+        if(scoreTimer > (50 - difficulty)){
             playerPoints++;
             scoreTimer = 0;
         }
     }, 100);
     
-    gameObjects[0] = new ScrollingBackgroundImage (backImage, 50);
-    gameObjects[1] = new ScrollingBackgroundImage (midImage, 30);
-    gameObjects[2] = new ScrollingBackgroundImage (frontImage, 20);
+    gameObjects[0] = new ScrollingBackgroundImage (backImage, 0.03);
+    gameObjects[1] = new ScrollingBackgroundImage (midImage, 0.02);
+    gameObjects[2] = new ScrollingBackgroundImage (frontImage, 0.01);
 
     gameObjects[3] = new Player(70);
 

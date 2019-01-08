@@ -5,10 +5,11 @@ class ScrollingBackgroundImage extends GameObject
     /* Each gameObject MUST have a constructor() and a render() method.        */
     /* If the object animates, then it must also have an updateState() method. */
 
-    constructor(image, updateStateMilliseconds)
+    constructor(image, movementSpeed)
     {
-        super(updateStateMilliseconds); /* as this class extends from GameObject, you must always call super() */
+        super(10); /* as this class extends from GameObject, you must always call super() */
 
+        this.movementSpeed = movementSpeed;
         /* These variables depend on the object */
         this.image = image;
 
@@ -17,7 +18,7 @@ class ScrollingBackgroundImage extends GameObject
 
     updateState()
     {   
-        this.x--;
+        this.x -= (this.movementSpeed + gameSpeedMultiplier * 0.2);
         if (this.x <= -canvas.width)
         {
             this.x = 0;
