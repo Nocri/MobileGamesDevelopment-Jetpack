@@ -172,9 +172,9 @@ function playGame()
         }
     }, 100);
     
-    gameObjects[0] = new ScrollingBackgroundImage (backImage, 0.03);
-    gameObjects[1] = new ScrollingBackgroundImage (midImage, 0.02);
-    gameObjects[2] = new ScrollingBackgroundImage (frontImage, 0.01);
+    gameObjects[0] = new ScrollingBackgroundImage (backImage, 0.06);
+    gameObjects[1] = new ScrollingBackgroundImage (midImage, 0.12);
+    gameObjects[2] = new ScrollingBackgroundImage (frontImage, 0.18);
 
     gameObjects[3] = new Player(70);
 

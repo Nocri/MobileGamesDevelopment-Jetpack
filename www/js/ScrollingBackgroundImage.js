@@ -18,7 +18,7 @@ class ScrollingBackgroundImage extends GameObject
 
     updateState()
     {   
-        this.x -= (this.movementSpeed + gameSpeedMultiplier * 0.2);
+        this.x -= (this.movementSpeed * gameSpeedMultiplier);
         if (this.x <= -canvas.width)
         {
             this.x = 0;
