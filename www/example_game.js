@@ -89,7 +89,24 @@ let frontImage = new Image();
 frontImage.src = "img/foreground.png";
 
 function getRandomHeight(){
-    return Math.random() * canvas.height;
+    return Math.random() * (canvas.height - 50) + 25;
+}
+
+function getRandomCoinHeight(){
+    let lastCoinX = lastCoin.centreX;
+    let dX = canvas.width - lastCoinX;
+    let dY = dX * 2;
+
+    let topEdge = lastCoin.centreY - dY;
+    let bottomEdge = lastCoin.centreY + dY;
+    if(topEdge < 25){ topEdge = 25;}
+    if(bottomEdge > (canvas.height - 60)){ bottomEdge = canvas.height - 60;}
+    
+
+    let generatedValue = Math.random() * (bottomEdge - topEdge) + (topEdge);
+    
+    console.log({lastCoinX: lastCoinX, dX: dX, dY: dY, generatedValue: generatedValue})
+    return generatedValue;
 }
 
 function resetGame(){
@@ -110,6 +127,7 @@ function onHighScoresClicked(){
     console.log("high scores");
 }
 
+var lastCoin = undefined;
 
 var isGameInit = false;
 /* Always have a playGame() function                                     */
@@ -141,10 +159,16 @@ function playGame()
             if(number < probSum){
                 switch(i){
                     case 0:
-                    newObject = new Coin(getRandomHeight());
+                    if(lastCoin === undefined){
+                        newObject = new Coin(getRandomHeight());
+                    } else{
+                        newObject = new Coin(getRandomCoinHeight());                        
+                    }
+                    lastCoin = newObject;
+                    console.log({newLastCoin: lastCoin});
                     break;
                     case 1:
-                    newObject = new Missile(getRandomHeight());
+                        newObject = new Missile(getRandomHeight());
                     break;
                     case 2:
                     newObject = new Health(getRandomHeight());
@@ -205,7 +229,12 @@ function playGame()
             old: gameObjects,
             new: newObjects
         });
+        
+        if(!newObjects.includes(lastCoin)){
+            lastCoin = undefined;
+        }
         gameObjects = newObjects;
+        
     }, 5000);
 
     /* If they are needed, then include any game-specific mouse and keyboard listners */
